@@ -47,7 +47,7 @@ class MainActivity : Activity() {
                 try {
                     if (p.isPlaying) {
                         seek.progress = p.currentPosition
-                        timeText.text = "${formatTime(p.currentPosition)}  /  ${formatTime(p.duration)}"
+                        timeText.text = "${formatTime(p.currentPosition.toLong())}  /  ${formatTime(p.duration.toLong())}"
                     }
                 } catch (_: Exception) {}
             }
@@ -94,7 +94,7 @@ class MainActivity : Activity() {
         search = EditText(this).apply {
             hint = "Search songs, artists, albums"
             setHintTextColor(color("#85818F")); setTextColor(Color.WHITE)
-            textSize = 14f; singleLine = true
+            textSize = 14f; setSingleLine(true)
             setPadding(dp(16), dp(4), dp(12), dp(4))
             background = rounded(color("#24222B"), 16)
         }
@@ -266,7 +266,7 @@ class MainActivity : Activity() {
                 seek.progress = 0
                 titleText.text = songs[index].title
                 artistText.text = songs[index].artist
-                timeText.text = "0:00 / ${formatTime(mp.duration)}"
+                timeText.text = "0:00 / ${formatTime(mp.duration.toLong())}"
             }
             player?.setOnCompletionListener { if (repeat) playSong(current) else nextSong() }
             player?.setOnErrorListener { _, _, _ -> Toast.makeText(this, "Cannot play this audio file", Toast.LENGTH_SHORT).show(); true }
